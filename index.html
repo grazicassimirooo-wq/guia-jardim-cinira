@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Guia Jardim Cinira</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; }
+
+    .gjc {
+      --bg: #f6f5ef;
+      --surface: #ffffff;
+      --border: #e8e7df;
+      --text: #1b1e1b;
+      --muted: #65695f;
+      --accent: #1f6e46;
+      font-family: 'Hanken Grotesk', system-ui, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      min-height: 100vh;
+      transition: background .3s, color .3s;
+    }
+    .gjc[data-theme="dark"] {
+      --bg: #0f1310;
+      --surface: #19201b;
+      --border: #2b332c;
+      --text: #eef1ec;
+      --muted: #9aa49a;
+      --accent: #5cc98c;
+    }
+
+    /* ── HEADER ── */
+    .gjc-header {
+      position: sticky; top: 0; z-index: 50;
+      background: #16201a; color: #fff;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      transition: box-shadow .25s ease;
+    }
+    .gjc-header-inner {
+      max-width: 1180px; margin: 0 auto; padding: 0 28px; height: 66px;
+      display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 20px;
+    }
+    .gjc-logo {
+      display: flex; align-items: center; gap: 11px; text-decoration: none; color: #fff;
+    }
+    .gjc-logo-icon {
+      width: 33px; height: 33px; border-radius: 9px; flex: 0 0 auto;
+      background: linear-gradient(135deg,#3bbd79,#1f6e46);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .gjc-logo-icon span {
+      width: 11px; height: 11px; background: #fff; transform: rotate(45deg); border-radius: 2px;
+    }
+    .gjc-logo-text { display: flex; flex-direction: column; line-height: 1; }
+    .gjc-logo-name { font: 800 15px Archivo; letter-spacing: .02em; white-space: nowrap; }
+    .gjc-logo-sub  { font: 600 9px 'Hanken Grotesk'; letter-spacing: .32em; color: #7fb597; text-transform: uppercase; margin-top: 4px; }
+
+    .gjc-nav { display: flex; align-items: center; gap: 24px; justify-self: center; }
+    .gjc-nav a {
+      font: 600 13px 'Hanken Grotesk'; color: rgba(255,255,255,.8);
+      text-decoration: none; letter-spacing: .04em; text-transform: uppercase;
+      transition: color .25s ease, font-weight .1s;
+    }
+    .gjc-nav a:hover, .gjc-nav a.active { color: #6fd49b; }
+    .gjc-nav a.active { font-weight: 700; }
+
+    .gjc-header-actions { display: flex; align-items: center; gap: 10px; justify-self: end; }
+    .gjc-theme-btn {
+      font: 600 16px Archivo; color: #fff; background: transparent;
+      border: 1px solid rgba(255,255,255,.22); border-radius: 99px;
+      width: 38px; height: 38px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      line-height: 1; padding: 0; transition: border-color .2s;
+    }
+    .gjc-theme-btn:hover { border-color: #6fd49b; }
+    .gjc-login-btn {
+      font: 700 12.5px 'Hanken Grotesk'; color: #16201a; background: #fff;
+      border: 0; border-radius: 99px; padding: 9px 20px; cursor: pointer;
+      letter-spacing: .04em; text-transform: uppercase; transition: background .2s;
+    }
+    .gjc-login-btn:hover { background: #6fd49b; }
+
+    /* ── HERO ── */
+    .gjc-hero { position: relative; height: 474px; overflow: hidden; background: #16201a; }
+    .gjc-hero-track {
+      display: flex; width: 100%; height: 100%;
+      transition: transform .65s cubic-bezier(.4,0,.2,1);
+    }
+    .gjc-slide { flex: 0 0 100%; height: 100%; position: relative; }
+    .gjc-slide-pattern {
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(135deg,rgba(255,255,255,0) 0 14px,rgba(255,255,255,.05) 14px 28px);
+    }
+    .gjc-slide-caption {
+      position: absolute; bottom: 14px; right: 18px;
+      font: 500 11px ui-monospace,Menlo,monospace;
+      color: rgba(255,255,255,.7); text-shadow: 0 1px 3px rgba(0,0,0,.4);
+    }
+    .gjc-slide-content { position: absolute; inset: 0; display: flex; align-items: center; }
+    .gjc-slide-inner { width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+    .gjc-slide-box { max-width: 580px; }
+    .gjc-slide-tag {
+      font: 700 12px 'Hanken Grotesk'; letter-spacing: .18em; text-transform: uppercase;
+      display: flex; align-items: center; gap: 9px;
+    }
+    .gjc-slide-tag span { width: 7px; height: 7px; transform: rotate(45deg); display: inline-block; flex: 0 0 auto; }
+    .gjc-slide-box h1 {
+      font: 800 clamp(34px,4.7vw,56px)/1.02 Archivo;
+      color: #fff; letter-spacing: -.022em; margin: 16px 0 0;
+    }
+    .gjc-slide-box p {
+      font: 500 18px/1.5 'Hanken Grotesk'; color: rgba(255,255,255,.92); margin: 16px 0 0; max-width: 440px;
+    }
+    .gjc-slide-btn {
+      margin-top: 28px; background: #fff; border: 0; border-radius: 99px;
+      padding: 15px 28px; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 10px;
+      font: 700 15px 'Hanken Grotesk'; transition: background .2s;
+    }
+    .gjc-hero-arrow {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 46px; height: 46px; border-radius: 50%;
+      background: rgba(255,255,255,.92); border: 0; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 16px rgba(0,0,0,.18);
+      font: 400 22px Archivo; color: #16201a; line-height: 1; padding: 0;
+      transition: background .2s;
+    }
+    .gjc-hero-arrow:hover { background: #fff; }
+    #hero-prev { left: 20px; }
+    #hero-next { right: 20px; }
+    .gjc-hero-dots {
+      position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+      display: flex; gap: 8px;
+    }
+    .gjc-dot {
+      height: 5px; border-radius: 99px; border: 0; cursor: pointer; padding: 0;
+      transition: all .3s;
+    }
+    .gjc-dot.active   { width: 34px; background: #ffffff; }
+    .gjc-dot.inactive { width: 24px; background: rgba(255,255,255,.45); }
+
+    /* ── CHIPS ── */
+    .gjc-chips-bar { max-width: 1180px; margin: 0 auto; padding: 26px 28px 0; }
+    .gjc-chips { display: flex; flex-wrap: wrap; gap: 10px; }
+    .gjc-chip {
+      font: 600 13px 'Hanken Grotesk'; border-radius: 99px; padding: 9px 17px;
+      text-decoration: none; transition: border-color .2s;
+    }
+    .gjc-chip-active  { color: #fff; background: #1f6e46; border: 1px solid #1f6e46; }
+    .gjc-chip-passive { color: var(--text); background: var(--surface); border: 1px solid var(--border); }
+    .gjc-chip-passive:hover { border-color: #2f9e64; }
+
+    /* ── SECTIONS ── */
+    .gjc-section { max-width: 1180px; margin: 0 auto; padding: 50px 28px 0; }
+    .gjc-section-head {
+      display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; margin-bottom: 22px;
+    }
+    .gjc-label {
+      font: 700 12px 'Hanken Grotesk'; letter-spacing: .16em; text-transform: uppercase; color: #2f9e64;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .gjc-label span { width: 6px; height: 6px; background: #2f9e64; transform: rotate(45deg); display: inline-block; flex: 0 0 auto; }
+    .gjc-section-title { font: 800 30px/1.05 Archivo; letter-spacing: -.015em; color: var(--text); margin: 8px 0 0; }
+    .gjc-section-actions { display: flex; align-items: center; gap: 14px; }
+    .gjc-see-all { font: 600 14px 'Hanken Grotesk'; color: var(--accent); text-decoration: none; white-space: nowrap; }
+    .gjc-row-arrows { display: flex; gap: 8px; }
+    .gjc-row-arrow {
+      width: 38px; height: 38px; border-radius: 50%; background: var(--surface);
+      border: 1px solid var(--border); color: var(--text); font-size: 20px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; line-height: 1; padding: 0;
+      transition: border-color .2s;
+    }
+    .gjc-row-arrow:hover { border-color: #2f9e64; }
+
+    /* ── CARD ROWS ── */
+    .gjc-row {
+      display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory;
+      padding: 16px 6px 22px; scrollbar-width: none; -ms-overflow-style: none;
+      mask-image: linear-gradient(to right, transparent 0, black 32px, black calc(100% - 32px), transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0, black 32px, black calc(100% - 32px), transparent 100%);
+    }
+    .gjc-row::-webkit-scrollbar { display: none; }
+
+    /* ── CARDS ── */
+    .gjc-card {
+      flex: 0 0 304px; scroll-snap-align: start;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+      overflow: hidden; display: flex; flex-direction: column;
+      box-shadow: 0 1px 2px rgba(20,30,22,.05);
+      transform: perspective(950px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));
+      transition: opacity .55s cubic-bezier(.22,1,.36,1), transform .18s ease, box-shadow .25s ease;
+      will-change: transform;
+    }
+    .gjc-card-img { position: relative; height: 172px; }
+    .gjc-card-img-pat {
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(135deg,rgba(255,255,255,0) 0 11px,rgba(255,255,255,.07) 11px 22px);
+    }
+    .gjc-card-badge {
+      position: absolute; top: 12px; left: 12px;
+      font: 700 10px 'Hanken Grotesk'; letter-spacing: .1em; text-transform: uppercase;
+      color: #fff; background: rgba(18,28,20,.6); padding: 5px 10px; border-radius: 99px;
+    }
+    .gjc-card-badge.novo { color: #16201a; background: #9fe6bd; }
+    .gjc-card-photo {
+      position: absolute; bottom: 10px; left: 13px;
+      font: 500 11px ui-monospace,Menlo,monospace; color: rgba(255,255,255,.85); text-shadow: 0 1px 3px rgba(0,0,0,.3);
+    }
+    .gjc-card-body { padding: 16px 17px 17px; display: flex; flex-direction: column; gap: 7px; flex: 1; }
+    .gjc-card-title { font: 700 17px Archivo; color: var(--text); margin: 0; letter-spacing: -.01em; }
+    .gjc-card-desc  { font: 400 13.5px/1.5 'Hanken Grotesk'; color: var(--muted); margin: 0; flex: 1; }
+    .gjc-card-foot  { display: flex; align-items: center; justify-content: space-between; margin-top: 5px; }
+    .gjc-card-rating { font: 600 12.5px 'Hanken Grotesk'; color: var(--accent); }
+    .gjc-card-rating .star { color: #e2a93b; }
+    .gjc-card-new { font: 600 12.5px 'Hanken Grotesk'; color: var(--accent); }
+    .gjc-card-link { font: 600 13px 'Hanken Grotesk'; color: var(--text); text-decoration: none; transition: color .2s; }
+    .gjc-card-link:hover { color: #2f9e64; }
+
+    /* ── COMMENTS ── */
+    .gjc-comments { max-width: 1180px; margin: 0 auto; padding: 62px 28px 0; }
+    .gjc-comments-head { margin-bottom: 28px; }
+    .gjc-comments-desc { font: 500 16px/1.5 'Hanken Grotesk'; color: var(--muted); margin: 10px 0 0; max-width: 560px; }
+    .gjc-comments-grid {
+      display: grid; grid-template-columns: minmax(0,380px) 1fr; gap: 28px; align-items: start;
+    }
+    .gjc-comment-form {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 18px;
+      padding: 24px; position: sticky; top: 84px;
+    }
+    .gjc-form-title { font: 700 18px Archivo; color: var(--text); margin: 0 0 18px; }
+    .gjc-form-label {
+      font: 600 11px 'Hanken Grotesk'; letter-spacing: .06em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 7px; display: block;
+    }
+    .gjc-form-input, .gjc-form-textarea {
+      width: 100%; font: 400 14px 'Hanken Grotesk'; color: var(--text);
+      background: var(--bg); border: 1px solid var(--border); border-radius: 10px;
+      padding: 11px 13px; outline: none; margin-bottom: 16px; transition: border-color .2s;
+    }
+    .gjc-form-input:focus, .gjc-form-textarea:focus { border-color: var(--accent); }
+    .gjc-form-textarea { resize: vertical; }
+    .gjc-type-btns { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+    .gjc-type-btn {
+      font: 600 13px 'Hanken Grotesk'; border-radius: 99px; padding: 8px 15px;
+      cursor: pointer; transition: background .2s, border-color .2s;
+    }
+    .gjc-type-btn.sel   { background: var(--accent); color: #fff; border: 1px solid var(--accent); }
+    .gjc-type-btn.unsel { background: transparent; color: var(--text); border: 1px solid var(--border); }
+    .gjc-form-error { font: 500 13px 'Hanken Grotesk'; color: #d4564f; margin-bottom: 12px; display: none; }
+    .gjc-submit-btn {
+      width: 100%; background: var(--accent); color: #fff;
+      font: 700 14px 'Hanken Grotesk'; border: 0; border-radius: 99px;
+      padding: 13px; cursor: pointer; transition: background .2s;
+    }
+    .gjc-submit-btn:hover { background: #3bbd79; }
+    .gjc-comment-count { font: 700 13px 'Hanken Grotesk'; color: var(--muted); margin-bottom: 16px; }
+    .gjc-comment-list { display: flex; flex-direction: column; gap: 14px; }
+    .gjc-comment-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+      padding: 18px; display: flex; gap: 13px;
+    }
+    .gjc-avatar {
+      width: 42px; height: 42px; flex: 0 0 auto; border-radius: 50%;
+      background: linear-gradient(135deg,#3bbd79,#1f6e46); color: #fff;
+      display: flex; align-items: center; justify-content: center; font: 700 14px Archivo;
+    }
+    .gjc-comment-body { flex: 1; min-width: 0; }
+    .gjc-comment-meta { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
+    .gjc-comment-name { font: 700 14.5px Archivo; color: var(--text); }
+    .gjc-comment-badge {
+      font: 700 10px 'Hanken Grotesk'; letter-spacing: .06em; text-transform: uppercase;
+      padding: 3px 9px; border-radius: 99px;
+    }
+    .gjc-comment-badge.sug  { background: rgba(92,201,140,.16);  color: var(--accent); }
+    .gjc-comment-badge.elo  { background: rgba(226,169,59,.18);  color: #caa33c; }
+    .gjc-comment-badge.com  { background: rgba(140,150,140,.16); color: var(--muted); }
+    .gjc-comment-time { font: 400 12px 'Hanken Grotesk'; color: var(--muted); margin-left: auto; }
+    .gjc-comment-text { font: 400 14px/1.55 'Hanken Grotesk'; color: var(--text); margin: 9px 0 0; }
+    .gjc-like-btn {
+      margin-top: 11px; background: transparent; border: 0; cursor: pointer;
+      font: 600 13px 'Hanken Grotesk'; display: inline-flex; align-items: center; gap: 6px;
+      padding: 0; color: var(--muted); transition: color .2s;
+    }
+    .gjc-like-btn.liked { color: var(--accent); }
+
+    /* ── CTA ── */
+    .gjc-cta-section { max-width: 1180px; margin: 0 auto; padding: 64px 28px 0; }
+    .gjc-cta-block {
+      background: linear-gradient(135deg,#1d6b46,#16201a); border-radius: 22px;
+      padding: 48px 44px; display: flex; align-items: center;
+      justify-content: space-between; gap: 30px; flex-wrap: wrap;
+    }
+    .gjc-cta-label { font: 700 12px 'Hanken Grotesk'; letter-spacing: .16em; text-transform: uppercase; color: #9fe6bd; }
+    .gjc-cta-title { font: 800 30px/1.1 Archivo; color: #fff; margin: 10px 0 0; letter-spacing: -.015em; }
+    .gjc-cta-desc  { font: 500 16px/1.5 'Hanken Grotesk'; color: rgba(255,255,255,.82); margin: 12px 0 0; max-width: 560px; }
+    .gjc-cta-btn {
+      background: #fff; color: #16321f; font: 700 15px 'Hanken Grotesk';
+      border: 0; border-radius: 99px; padding: 15px 30px; cursor: pointer;
+      white-space: nowrap; transition: background .2s;
+    }
+    .gjc-cta-btn:hover { background: #9fe6bd; }
+
+    /* ── FOOTER ── */
+    .gjc-footer { background: #16201a; color: #fff; margin-top: 64px; }
+    .gjc-footer-inner {
+      max-width: 1180px; margin: 0 auto; padding: 54px 28px 30px;
+      display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+    }
+    .gjc-footer-about p { font: 400 14px/1.6 'Hanken Grotesk'; color: rgba(255,255,255,.62); margin: 16px 0 0; max-width: 340px; }
+    .gjc-footer-col-title { font: 700 12px 'Hanken Grotesk'; letter-spacing: .1em; text-transform: uppercase; color: #7fb597; margin-bottom: 14px; }
+    .gjc-footer-links { display: flex; flex-direction: column; gap: 10px; }
+    .gjc-footer-link { font: 500 14px 'Hanken Grotesk'; color: rgba(255,255,255,.78); text-decoration: none; transition: color .2s; }
+    .gjc-footer-link:hover { color: #fff; }
+    .gjc-footer-anuncie-desc { font: 400 14px/1.6 'Hanken Grotesk'; color: rgba(255,255,255,.62); margin: 0 0 14px; }
+    .gjc-footer-anuncie-btn {
+      background: #2f9e64; color: #fff; font: 700 13px 'Hanken Grotesk';
+      border: 0; border-radius: 99px; padding: 11px 20px; cursor: pointer; transition: background .2s;
+    }
+    .gjc-footer-anuncie-btn:hover { background: #3bbd79; }
+    .gjc-footer-bottom { border-top: 1px solid rgba(255,255,255,.08); }
+    .gjc-footer-bottom-inner {
+      max-width: 1180px; margin: 0 auto; padding: 18px 28px;
+      display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    }
+    .gjc-footer-copy { font: 400 13px 'Hanken Grotesk'; color: rgba(255,255,255,.5); }
+  </style>
+</head>
+<body>
+<div class="gjc" id="gjc" data-theme="light">
+
+  <!-- HEADER -->
+  <header class="gjc-header" id="gjc-header">
+    <div class="gjc-header-inner">
+      <a href="#inicio" class="gjc-logo">
+        <span class="gjc-logo-icon"><span></span></span>
+        <span class="gjc-logo-text">
+          <span class="gjc-logo-name">GUIA JARDIM CINIRA</span>
+          <span class="gjc-logo-sub">Revista digital de anúncios</span>
+        </span>
+      </a>
+
+      <nav class="gjc-nav" id="gjc-nav">
+        <a href="#inicio"      data-sec="inicio">Início</a>
+        <a href="#comercio"    data-sec="comercio">Comércio</a>
+        <a href="#servicos"    data-sec="servicos">Serviços</a>
+        <a href="#gastronomia" data-sec="gastronomia">Gastronomia</a>
+        <a href="#eventos"     data-sec="eventos">Eventos</a>
+        <a href="#anuncie"     data-sec="anuncie">Anuncie</a>
+      </nav>
+
+      <div class="gjc-header-actions">
+        <button class="gjc-theme-btn" id="theme-btn" aria-label="Alternar tema">☾</button>
+        <button class="gjc-login-btn">Login</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO CAROUSEL -->
+  <section id="inicio" class="gjc-hero">
+    <div class="gjc-hero-track" id="hero-track">
+
+      <!-- Slide 1 -->
+      <div class="gjc-slide" style="background:linear-gradient(158deg,#cfe3c9 0%,#9fc6a7 52%,#5f9c78 100%);">
+        <div class="gjc-slide-pattern"></div>
+        <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,20,14,.8) 0%,rgba(11,20,14,.46) 46%,rgba(11,20,14,.05) 100%);"></div>
+        <span class="gjc-slide-caption">foto · colinas e casas de Itapecerica da Serra</span>
+        <div class="gjc-slide-content"><div class="gjc-slide-inner"><div class="gjc-slide-box">
+          <div class="gjc-slide-tag" style="color:#9fe6bd;"><span style="background:#9fe6bd;"></span>Itapecerica da Serra · SP</div>
+          <h1>Descubra o melhor do Jardim Cinira</h1>
+          <p>Anúncios e negócios locais, tudo em um só lugar.</p>
+          <button class="gjc-slide-btn" style="color:#16321f;" onmouseover="this.style.background='#6fd49b'" onmouseout="this.style.background='#fff'">Explorar agora →</button>
+        </div></div></div>
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="gjc-slide" style="background:linear-gradient(158deg,#ecdcc2 0%,#d8bf95 52%,#b89968 100%);">
+        <div class="gjc-slide-pattern"></div>
+        <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(20,16,11,.8) 0%,rgba(20,16,11,.46) 46%,rgba(20,16,11,.05) 100%);"></div>
+        <span class="gjc-slide-caption">foto · comércio de rua do bairro</span>
+        <div class="gjc-slide-content"><div class="gjc-slide-inner"><div class="gjc-slide-box">
+          <div class="gjc-slide-tag" style="color:#f1d9a8;"><span style="background:#f1d9a8;"></span>Para quem vende</div>
+          <h1>Sua loja no mapa do bairro</h1>
+          <p>Anuncie seu comércio e alcance novos clientes da região.</p>
+          <button class="gjc-slide-btn" style="color:#3a2c12;" onmouseover="this.style.background='#f1d9a8'" onmouseout="this.style.background='#fff'">Quero anunciar →</button>
+        </div></div></div>
+      </div>
+
+      <!-- Slide 3 -->
+      <div class="gjc-slide" style="background:linear-gradient(158deg,#cfd6e6 0%,#a6b0cd 52%,#74809f 100%);">
+        <div class="gjc-slide-pattern"></div>
+        <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,14,22,.8) 0%,rgba(11,14,22,.46) 46%,rgba(11,14,22,.05) 100%);"></div>
+        <span class="gjc-slide-caption">foto · feira / evento na praça</span>
+        <div class="gjc-slide-content"><div class="gjc-slide-inner"><div class="gjc-slide-box">
+          <div class="gjc-slide-tag" style="color:#bcc8ea;"><span style="background:#bcc8ea;"></span>Agenda local</div>
+          <h1>O que vai rolar na região</h1>
+          <p>Feiras, shows e eventos do Jardim Cinira na sua semana.</p>
+          <button class="gjc-slide-btn" style="color:#16203a;" onmouseover="this.style.background='#bcc8ea'" onmouseout="this.style.background='#fff'">Ver eventos →</button>
+        </div></div></div>
+      </div>
+    </div>
+
+    <button class="gjc-hero-arrow" id="hero-prev" aria-label="Anterior">‹</button>
+    <button class="gjc-hero-arrow" id="hero-next" aria-label="Próximo">›</button>
+
+    <div class="gjc-hero-dots" id="hero-dots">
+      <button class="gjc-dot active"   data-slide="0" aria-label="Slide 1"></button>
+      <button class="gjc-dot inactive" data-slide="1" aria-label="Slide 2"></button>
+      <button class="gjc-dot inactive" data-slide="2" aria-label="Slide 3"></button>
+    </div>
+  </section>
+
+  <!-- CATEGORY CHIPS -->
+  <div class="gjc-chips-bar" data-chips-bar>
+    <div class="gjc-chips">
+      <a href="#comercio"    class="gjc-chip gjc-chip-active">Comércio</a>
+      <a href="#servicos"    class="gjc-chip gjc-chip-passive">Serviços</a>
+      <a href="#gastronomia" class="gjc-chip gjc-chip-passive">Gastronomia</a>
+      <a href="#eventos"     class="gjc-chip gjc-chip-passive">Eventos</a>
+      <a href="#saude"       class="gjc-chip gjc-chip-passive">Saúde</a>
+      <a href="#saude"       class="gjc-chip gjc-chip-passive">Bar</a>
+    </div>
+  </div>
+
+  <!-- ROW 1: GASTRONOMIA -->
+  <section id="gastronomia" class="gjc-section">
+    <div class="gjc-section-head" data-reveal-up>
+      <div>
+        <div class="gjc-label"><span></span>Sabores do bairro</div>
+        <h2 class="gjc-section-title">Gastronomia local</h2>
+      </div>
+      <div class="gjc-section-actions">
+        <a href="#" class="gjc-see-all">Ver tudo →</a>
+        <div class="gjc-row-arrows">
+          <button class="gjc-row-arrow" id="r0-l" aria-label="Anterior">‹</button>
+          <button class="gjc-row-arrow" id="r0-r" aria-label="Próximo">›</button>
+        </div>
+      </div>
+    </div>
+    <div class="gjc-row" id="row0">
+      <article class="gjc-card" data-tilt>
+        <div class="gjc-card-img" style="background:linear-gradient(135deg,#ecd9c2,#d6ac7c);">
+          <div class="gjc-card-img-pat"></div>
+          <span class="gjc-card-badge">Gastronomia</span>
+          <span class="gjc-card-photo">foto · pizza</span>
+        </div>
+        <div class="gjc-card-body">
+          <h3 class="gjc-card-title">Adega da Vila</h3>
+          <p class="gjc-card-desc">Pizzas artesanais em forno a lenha. Rodízio às sextas-feiras.</p>
+          <div class="gjc-card-foot">
+            <span class="gjc-card-rating"><span class="star">★</span> 4.8</span>
+            <a href="#" class="gjc-card-link">Ver mais →</a>
+          </div>
+        </div>
+      </article>
+      <article class="gjc-card" data-tilt>
+        <div class="gjc-card-img" style="background:linear-gradient(135deg,#efe2cb,#dcc69a);">
+          <div class="gjc-card-img-pat"></div>
+          <span class="gjc-card-badge">Gastronomia</span>
+          <span class="gjc-card-photo">foto · pães frescos</span>
+        </div>
+        <div class="gjc-card-body">
+          <h3 class="gjc-card-title">Padaria Central</h3>
+          <p class="gjc-card-desc">Pães fresquinhos, bolos e cafezinho quentinho desde 1998.</p>
+          <div class="gjc-card-foot">
+            <span class="gjc-card-rating"><span class="star">★</span> 4.7</span>
+            <a href="#" class="gjc-card-link">Ver mais →</a>
+          </div>
+        </div>
+      </article>
+      <article class="gjc-card" data-tilt>
+        <div class="gjc-card-img" style="background:linear-gradient(135deg,#e3d4c4,#c49f82);">
+          <div class="gjc-card-img-pat"></div>
+          <span class="gjc-card-badge">Gastronomia</span>
+          <span class="gjc-card-photo">foto · café e sobremesa</span>
+        </div>
+        <div class="gjc-card-body">
+          <h3 class="gjc-card-title">Café do Jardim</h3>
+          <p class="gjc-card-desc">Cafés especiais, brunch e sobremesas feitas no capricho.</p>
+          <div class="gjc-card-foot">
+            <span class="gjc-card-rating"><span class="star">★</span> 4.9</span>
+            <a href="#" class="gjc-card-link">Ver mais →</a>
+          </div>
+        </div>
+      </article>
+      <article class="gjc-card" data-tilt>
+        <div class="gjc-card-img" style="background:linear-gradient(135deg,#e6d8c0,#cdaa7c);">
+          <div class="gjc-card-img-pat"></div>
+          <span class="gjc-card-badge">Gastronomia</span>
+          <span class="gjc-card-photo">foto · hambúrguer artesanal</span>
+        </div>
+        <div class="gjc-card-body">
+          <h3 class="gjc-card-title">Burger da Serra</h3>
+          <p class="gjc-card-desc">Hambúrgueres artesanais e batata rústica. Delivery no bairro.</p>
+          <div class="gjc-card-foot">
+            <span class="gjc-card-rating"><span class="star">★</span> 4.6</span>
+            <a href="#" class="gjc-card-link">Ver mais →</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ROW 2: SERVIÇOS -->
+  <section id="servicos" class="gjc-section">
+    <div class="gjc-section-head" data-reveal-up>
+      <div>
+        <div class="gjc-label"><span></span>Resolva por perto</div>
+        <h2 class="gjc-section-title">Serviços em destaque</h2>
+      </div>
+      <div class="gjc-section-actions">
+        <a href="#" class="gjc-see-all">Ver tudo →</a>
+        <div class="gjc-row-arrows">
+          <button class="gjc-row-arrow" id="r1-l" aria-label="Anterior">‹</button>
+          <button class="gjc-row-arrow" id="r1-r" aria-label="Próximo">›</button>
+        </div>
+      </div>
+    </div>
+    <div class="gjc-row" id="row1">
+      <article class="gjc-card" data-tilt>
+        <div class="gjc-card-img" style="background:linear-gradient(135deg,#d7dde2,#a9b4bd);">
+          <div class="gjc-card-img-pat"></div>
+          <span class="gjc-card-badge">Serviços</span>
+          <span class="gjc-card-photo">foto · mecânico no carro</span>
+        </div>
+        <div class="gjc-card-body">
+          <h3 class="gjc-card-title">Oficina Mecânica João</h3>
+          <p class="gjc-card-desc">Mecânica geral, elétrica e revisão completa. Orçamento na hora.</p>
+          <div class="gjc-card-foot">
+            <span class="gjc-card-rating"><span class="star">★</span> 4.6</span>
+            <a href="#" class="gjc-card-link">Ver mais →</a>
+          </div>
+        </div>
+      </article>
+      <article class="gjc-card" data-tilt>
+        <div class="gjc-card-img" style="background:linear-gradient(135deg,#ecd9de,#cfa6b4);">
+          <div class="gjc-card-img-pat"></div>
+          <span class="gjc-card-badge">Serviços</span>
+          <span class="gjc-card-photo">foto · pessoa no salão</span>
+        </div>
+        <div class="gjc-card-body">
+          <h3 class="gjc-card-title">Salão de Beleza Bella</h3>
+          <p class="gjc-card-desc">Cabelo, unhas e estética. Agende seu horário pelo WhatsApp.</p>
+          <div class="gjc-card-foot">
+            <span class="gjc-card-rating"><span class="star">★</span> 4.8</span>
+            <a href="#" class="gjc-card-link">Ver mais →</a>
+          </div>
+        </div>
+      </article>
+      <article class="gjc-card" data-tilt>
+        <div class="gjc-card-img" style="background:linear-gradient(135deg,#d8e6cf,#a8c79a);">
+          <div class="gjc-card-img-pat"></div>
+          <span class="gjc-card-badge">Comércio</span>
+          <span class="gjc-card-photo">foto · prateleira de hortifrúti</span>
+        </div>
+        <div class="gjc-card-body">
+          <h3 class="gjc-card-title">Mercado Popular</h3>
+          <p class="gjc-card-desc">Hortifrúti, açougue e mercearia com preço justo todo dia.</p>
+          <div class="gjc-card-foot">
+            <span class="gjc-card-rating"><span class="star">★</span> 4.5</span>
+            <a href="#" class="gjc-card-link">Ver mais →</a>
+          </div>
+        </div>
+      </article>
+      <article class="gjc-card" data-tilt>
+        <div class="gjc-card-img" style="background:linear-gradient(135deg,#dde0e6,#b0b6c1);">
+          <div class="gjc-card-img-pat"></div>
+          <span class="gjc-card-badge">Serviços</span>
+          <span class="gjc-card-photo">foto · eletricista</span>
+        </div>
+        <div class="gjc-card-body">
+          <h3 class="gjc-card-title">Elétrica &amp; Cia</h3>
+          <p class="gjc-card-desc">Instalações, reparos e emergências elétricas 24 horas.</p>
+          <div class="gjc-card-foot">
+            <span class="gjc-card-rating"><span class="star">★</span> 4.7</span>
+            <a href="#" class="gjc-card-link">Ver mais →</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ROW 3: NOVIDADES -->
+  <section id="comercio" class="gjc-section">
+    <div class="gjc-section-head" data-reveal-up>
+      <div>
+        <div class="gjc-label"><span></span>Acabou de chegar</div>
+        <h2 class="gjc-section-title">Novidades na região</h2>
+      </div>
+      <div class="gjc-section-actions">
+        <a href="#" class="gjc-see-all">Ver tudo →</a>
+        <div class="gjc-row-arrows">
+          <button class="gjc-row-arrow" id="r2-l" aria-label="Anterior">‹</button>
+          <button class="gjc-row-arrow" id="r2-r" aria-label="Próximo">›</button>
+        </div>
+      </div>
+    </div>
+    <div class="gjc-row" id="row2">
+      <article class="gjc-card" data-tilt>
+        <div class="gjc-card-img" style="background:linear-gradient(135deg,#d2e4dd,#9cc4b6);">
+          <div class="gjc-card-img-pat"></div>
+          <span class="gjc-card-badge novo">Novo · Saúde</span>
+          <span class="gjc-card-photo">foto · estúdio de pilates</span>
+        </div>
+        <div class="gjc-card-body">
+          <h3 class="gjc-card-title">Studio Pilates Vida</h3>
+          <p class="gjc-card-desc">Aulas em grupo e personal. Primeira aula experimental grátis.</p>
+          <div class="gjc-card-foot">
+            <span class="gjc-card-new">Recém-chegado</span>
+            <a href="#" class="gjc-card-link">Ver mais →</a>
+          </div>
+        </div>
+      </article>
+      <article class="gjc-card" data-tilt>
+        <div class="gjc-card-img" style="background:linear-gradient(135deg,#e3ddc9,#c7b58c);">
+          <div class="gjc-card-img-pat"></div>
+          <span class="gjc-card-badge novo">Novo · Pets</span>
+          <span class="gjc-card-photo">foto · pet shop</span>
+        </div>
+        <div class="gjc-card-body">
+          <h3 class="gjc-card-title">Pet Shop Amigo Fiel</h3>
+          <p class="gjc-card-desc">Banho, tosa e ração com entrega no bairro. Atende sábados.</p>
+          <div class="gjc-card-foot">
+            <span class="gjc-card-new">Recém-chegado</span>
+            <a href="#" class="gjc-card-link">Ver mais →</a>
+          </div>
+        </div>
+      </article>
+      <article class="gjc-card" data-tilt>
+        <div class="gjc-card-img" style="background:linear-gradient(135deg,#dcd6e4,#aaa0c2);">
+          <div class="gjc-card-img-pat"></div>
+          <span class="gjc-card-badge novo">Novo · Educação</span>
+          <span class="gjc-card-photo">foto · aula de música</span>
+        </div>
+        <div class="gjc-card-body">
+          <h3 class="gjc-card-title">Escola de Música Clave</h3>
+          <p class="gjc-card-desc">Violão, teclado e canto para todas as idades. Matrículas abertas.</p>
+          <div class="gjc-card-foot">
+            <span class="gjc-card-new">Recém-chegado</span>
+            <a href="#" class="gjc-card-link">Ver mais →</a>
+          </div>
+        </div>
+      </article>
+      <article class="gjc-card" data-tilt>
+        <div class="gjc-card-img" style="background:linear-gradient(135deg,#e3d6da,#c79fae);">
+          <div class="gjc-card-img-pat"></div>
+          <span class="gjc-card-badge novo">Novo · Comércio</span>
+          <span class="gjc-card-photo">foto · floricultura</span>
+        </div>
+        <div class="gjc-card-body">
+          <h3 class="gjc-card-title">Floricultura Jardim</h3>
+          <p class="gjc-card-desc">Arranjos, buquês e plantas para presentear. Entrega no mesmo dia.</p>
+          <div class="gjc-card-foot">
+            <span class="gjc-card-new">Recém-chegado</span>
+            <a href="#" class="gjc-card-link">Ver mais →</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- COMMENTS -->
+  <section id="comentarios" class="gjc-comments">
+    <div class="gjc-comments-head" data-reveal-up>
+      <div class="gjc-label"><span></span>Participe</div>
+      <h2 class="gjc-section-title">Comentários e sugestões</h2>
+      <p class="gjc-comments-desc">Conte o que você achou do guia, deixe um elogio ou sugira novos negócios e melhorias para o Jardim Cinira.</p>
+    </div>
+    <div class="gjc-comments-grid">
+      <!-- Form -->
+      <div class="gjc-comment-form">
+        <h3 class="gjc-form-title">Deixe sua mensagem</h3>
+        <label class="gjc-form-label">Nome</label>
+        <input class="gjc-form-input" id="form-name" type="text" placeholder="Seu nome">
+        <label class="gjc-form-label" style="margin-bottom:9px;">Tipo</label>
+        <div class="gjc-type-btns" id="type-btns">
+          <button class="gjc-type-btn unsel" data-type="Comentário">Comentário</button>
+          <button class="gjc-type-btn sel"   data-type="Sugestão">Sugestão</button>
+          <button class="gjc-type-btn unsel" data-type="Elogio">Elogio</button>
+        </div>
+        <label class="gjc-form-label">Mensagem</label>
+        <textarea class="gjc-form-input gjc-form-textarea" id="form-msg" rows="4" placeholder="Escreva seu comentário ou sugestão..."></textarea>
+        <div class="gjc-form-error" id="form-error"></div>
+        <button class="gjc-submit-btn" id="submit-btn">Enviar mensagem</button>
+      </div>
+      <!-- List -->
+      <div>
+        <div class="gjc-comment-count" id="comment-count">3 mensagens da comunidade</div>
+        <div class="gjc-comment-list" id="comment-list"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="anuncie" class="gjc-cta-section">
+    <div class="gjc-cta-block" data-reveal-scale>
+      <div style="max-width:560px;">
+        <div class="gjc-cta-label">Para o seu negócio</div>
+        <h2 class="gjc-cta-title">Coloque seu negócio no Guia Jardim Cinira</h2>
+        <p class="gjc-cta-desc">Apareça para milhares de vizinhos que procuram comércio e serviços perto de casa.</p>
+      </div>
+      <button class="gjc-cta-btn">Anunciar meu negócio →</button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="eventos" class="gjc-footer">
+    <div class="gjc-footer-inner">
+      <div class="gjc-footer-about" data-reveal-footer data-reveal-delay="0">
+        <div style="display:flex;align-items:center;gap:11px;">
+          <span class="gjc-logo-icon"><span></span></span>
+          <span style="font:800 15px Archivo;">GUIA JARDIM CINIRA</span>
+        </div>
+        <p>A revista digital de anúncios do Jardim Cinira — Itapecerica da Serra, SP. Tudo do bairro, num só lugar.</p>
+      </div>
+      <div data-reveal-footer data-reveal-delay="90">
+        <div class="gjc-footer-col-title">Explorar</div>
+        <div class="gjc-footer-links">
+          <a href="#comercio"    class="gjc-footer-link">Comércio</a>
+          <a href="#servicos"    class="gjc-footer-link">Serviços</a>
+          <a href="#gastronomia" class="gjc-footer-link">Gastronomia</a>
+          <a href="#eventos"     class="gjc-footer-link">Eventos</a>
+        </div>
+      </div>
+      <div data-reveal-footer data-reveal-delay="180">
+        <div class="gjc-footer-col-title">Anuncie</div>
+        <p class="gjc-footer-anuncie-desc">Faça parte do guia do bairro.</p>
+        <button class="gjc-footer-anuncie-btn">Anunciar grátis</button>
+      </div>
+    </div>
+    <div class="gjc-footer-bottom">
+      <div class="gjc-footer-bottom-inner">
+        <span class="gjc-footer-copy">© 2026 Guia Jardim Cinira. Todos os direitos reservados.</span>
+        <span class="gjc-footer-copy">Feito no bairro, para o bairro.</span>
+      </div>
+    </div>
+  </footer>
+
+</div><!-- .gjc -->
+
+<script>
+(function () {
+  'use strict';
+
+  // ── STATE ────────────────────────────────────────────────────────────────
+  let heroIndex = 0;
+  let formType  = 'Sugestão';
+  let heroTimer = null;
+  const TOTAL_SLIDES = 3;
+
+  let comments = [
+    { id: 1, name: 'Mariana Alves', type: 'Sugestão',   msg: 'Seria ótimo ter uma seção de feiras de fim de semana com horários e endereços.',   time: 'há 2 dias',    likes: 12, liked: false },
+    { id: 2, name: 'Roberto Souza', type: 'Elogio',     msg: 'Encontrei o eletricista aqui e fui super bem atendido. Parabéns pelo guia do bairro!', time: 'há 5 dias',    likes: 8,  liked: false },
+    { id: 3, name: 'Júlia Mendes',  type: 'Comentário', msg: 'A Padaria Central é a melhor mesmo, recomendo o pão na chapa de manhã.',              time: 'há 1 semana',  likes: 5,  liked: false },
+  ];
+
+  // ── THEME ────────────────────────────────────────────────────────────────
+  const gjc      = document.getElementById('gjc');
+  const themeBtn = document.getElementById('theme-btn');
+
+  function setTheme(t) {
+    gjc.setAttribute('data-theme', t);
+    themeBtn.textContent = t === 'dark' ? '☀' : '☾';
+    try { localStorage.setItem('gjc-theme', t); } catch (_) {}
+  }
+
+  themeBtn.addEventListener('click', () => {
+    setTheme(gjc.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+
+  try { const s = localStorage.getItem('gjc-theme'); if (s) setTheme(s); } catch (_) {}
+
+  // ── HERO CAROUSEL ────────────────────────────────────────────────────────
+  const heroTrack = document.getElementById('hero-track');
+  const heroDots  = [...document.querySelectorAll('.gjc-dot')];
+
+  function goSlide(n) {
+    heroIndex = ((n % TOTAL_SLIDES) + TOTAL_SLIDES) % TOTAL_SLIDES;
+    heroTrack.style.transform = 'translateX(-' + (heroIndex * 100) + '%)';
+    heroDots.forEach((d, i) => {
+      d.className = 'gjc-dot ' + (i === heroIndex ? 'active' : 'inactive');
+    });
+    resetTimer();
+  }
+
+  function resetTimer() {
+    clearInterval(heroTimer);
+    heroTimer = setInterval(() => goSlide(heroIndex + 1), 4000);
+  }
+
+  document.getElementById('hero-prev').addEventListener('click', () => goSlide(heroIndex - 1));
+  document.getElementById('hero-next').addEventListener('click', () => goSlide(heroIndex + 1));
+  heroDots.forEach(d => d.addEventListener('click', () => goSlide(+d.dataset.slide)));
+
+  resetTimer();
+
+  // ── CARD ROW ARROWS ──────────────────────────────────────────────────────
+  [['row0','r0-l','r0-r'], ['row1','r1-l','r1-r'], ['row2','r2-l','r2-r']].forEach(([rowId, lId, rId]) => {
+    const row = document.getElementById(rowId);
+    document.getElementById(lId).addEventListener('click', () => row.scrollBy({ left: -340, behavior: 'smooth' }));
+    document.getElementById(rId).addEventListener('click', () => row.scrollBy({ left:  340, behavior: 'smooth' }));
+  });
+
+  // ── COMMENTS ─────────────────────────────────────────────────────────────
+  function badgeCls(type) {
+    return type === 'Sugestão' ? 'sug' : type === 'Elogio' ? 'elo' : 'com';
+  }
+  function initials(name) {
+    return name.trim().split(/\s+/).map(w => w[0]).slice(0, 2).join('').toUpperCase();
+  }
+
+  let revealObs;  // declared below after initReveal
+
+  function renderComments() {
+    const list  = document.getElementById('comment-list');
+    const count = document.getElementById('comment-count');
+    count.textContent = comments.length + ' mensagens da comunidade';
+    list.innerHTML = '';
+
+    comments.forEach((c, idx) => {
+      const art = document.createElement('article');
+      art.className = 'gjc-comment-card';
+      art.innerHTML = `
+        <div class="gjc-avatar">${initials(c.name)}</div>
+        <div class="gjc-comment-body">
+          <div class="gjc-comment-meta">
+            <span class="gjc-comment-name">${c.name}</span>
+            <span class="gjc-comment-badge ${badgeCls(c.type)}">${c.type}</span>
+            <span class="gjc-comment-time">${c.time}</span>
+          </div>
+          <p class="gjc-comment-text">${c.msg}</p>
+          <button class="gjc-like-btn${c.liked ? ' liked' : ''}" data-id="${c.id}">♥ ${c.likes}</button>
+        </div>`;
+      list.appendChild(art);
+
+      // Scroll reveal for comments
+      if (revealObs && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const ease = 'cubic-bezier(.22,1,.36,1)';
+        art.style.opacity = '0';
+        art.style.transform = 'translateY(18px)';
+        art.style.transition = `opacity .55s ${ease} ${idx * 70}ms, transform .55s ${ease} ${idx * 70}ms`;
+        revealObs.observe(art);
+      }
+    });
+
+    list.querySelectorAll('.gjc-like-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = +btn.dataset.id;
+        comments = comments.map(c => c.id === id
+          ? { ...c, likes: c.likes + (c.liked ? -1 : 1), liked: !c.liked } : c);
+        renderComments();
+      });
+    });
+  }
+
+  // Type selector
+  const typeBtns = [...document.querySelectorAll('.gjc-type-btn')];
+  typeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      formType = btn.dataset.type;
+      typeBtns.forEach(b => { b.className = 'gjc-type-btn ' + (b.dataset.type === formType ? 'sel' : 'unsel'); });
+    });
+  });
+
+  // Submit
+  document.getElementById('submit-btn').addEventListener('click', () => {
+    const name = document.getElementById('form-name').value.trim();
+    const msg  = document.getElementById('form-msg').value.trim();
+    const errEl = document.getElementById('form-error');
+    if (!name || !msg) {
+      errEl.textContent = 'Preencha seu nome e a sua mensagem.';
+      errEl.style.display = 'block';
+      return;
+    }
+    errEl.style.display = 'none';
+    comments = [{ id: Date.now(), name, type: formType, msg, time: 'agora', likes: 0, liked: false }, ...comments];
+    document.getElementById('form-name').value = '';
+    document.getElementById('form-msg').value  = '';
+    renderComments();
+  });
+
+  // ── SCROLL: header shadow + active nav ──────────────────────────────────
+  const header   = document.getElementById('gjc-header');
+  const navLinks = [...document.querySelectorAll('#gjc-nav a')];
+  const secIds   = ['gastronomia','servicos','comercio','comentarios','anuncie'];
+  const sections = secIds.map(id => document.getElementById(id)).filter(Boolean);
+
+  window.addEventListener('scroll', () => {
+    const st = window.scrollY;
+
+    header.style.boxShadow = st > 20
+      ? '0 4px 28px rgba(0,0,0,.32)'
+      : '0 1px 0 rgba(255,255,255,.08)';
+
+    let active = null;
+    sections.forEach(s => { if (s.getBoundingClientRect().top < 130) active = s.id; });
+    navLinks.forEach(a => {
+      const sec = a.dataset.sec;
+      const on  = sec === active;
+      a.style.color      = on ? '#6fd49b' : 'rgba(255,255,255,.8)';
+      a.style.fontWeight = on ? '700'     : '600';
+    });
+  }, { passive: true });
+
+  // ── SCROLL REVEAL ────────────────────────────────────────────────────────
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const ease = 'cubic-bezier(.22,1,.36,1)';
+
+    revealObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target;
+        el.style.opacity   = '1';
+        if (!el.hasAttribute('data-tilt') && !el.hasAttribute('data-reveal-scale')) {
+          el.style.transform = el.hasAttribute('data-reveal-scale-done') ? 'scale(1) translateY(0)' : 'translateY(0)';
+        }
+        if (el.hasAttribute('data-reveal-scale')) {
+          el.style.transform = 'scale(1) translateY(0)';
+        }
+        revealObs.unobserve(el);
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+
+    setTimeout(() => {
+      // Section heads
+      document.querySelectorAll('[data-reveal-up]').forEach(el => {
+        el.style.opacity   = '0';
+        el.style.transform = 'translateY(28px)';
+        el.style.transition = `opacity .7s ${ease}, transform .7s ${ease}`;
+        revealObs.observe(el);
+      });
+
+      // CTA
+      document.querySelectorAll('[data-reveal-scale]').forEach(el => {
+        el.style.opacity   = '0';
+        el.style.transform = 'scale(.97) translateY(20px)';
+        el.style.transition = `opacity .75s ${ease}, transform .75s ${ease}`;
+        revealObs.observe(el);
+      });
+
+      // Cards — staggered opacity (transform stays for tilt)
+      document.querySelectorAll('[data-tilt]').forEach((el, i) => {
+        el.style.opacity   = '0';
+        el.style.transition = `opacity .55s ${ease} ${(i % 4) * 85}ms, transform .18s ease, box-shadow .25s ease`;
+        revealObs.observe(el);
+      });
+
+      // Chips bar
+      const chips = document.querySelector('[data-chips-bar]');
+      if (chips) {
+        chips.style.opacity   = '0';
+        chips.style.transform = 'translateY(16px)';
+        chips.style.transition = `opacity .6s ${ease}, transform .6s ${ease}`;
+        revealObs.observe(chips);
+      }
+
+      // Footer columns
+      document.querySelectorAll('[data-reveal-footer]').forEach(el => {
+        const delay = el.dataset.revealDelay || 0;
+        el.style.opacity   = '0';
+        el.style.transform = 'translateY(16px)';
+        el.style.transition = `opacity .6s ${ease} ${delay}ms, transform .6s ${ease} ${delay}ms`;
+        revealObs.observe(el);
+      });
+
+    }, 80);
+  }
+
+  // ── 3D TILT ──────────────────────────────────────────────────────────────
+  setTimeout(() => {
+    const BASE_SHADOW = '0 1px 2px rgba(20,30,22,.05)';
+    const MAX_DEG = 9;
+    document.querySelectorAll('[data-tilt]').forEach(el => {
+      if (el.__tilt) return;
+      el.__tilt = true;
+      el.addEventListener('mousemove', e => {
+        const r  = el.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width  - 0.5;
+        const py = (e.clientY - r.top)  / r.height - 0.5;
+        el.style.setProperty('--ry',  (px * MAX_DEG).toFixed(2) + 'deg');
+        el.style.setProperty('--rx', (-py * MAX_DEG).toFixed(2) + 'deg');
+        el.style.boxShadow = '0 26px 46px rgba(20,30,22,.22)';
+        el.style.zIndex    = '3';
+      });
+      el.addEventListener('mouseleave', () => {
+        el.style.setProperty('--ry', '0deg');
+        el.style.setProperty('--rx', '0deg');
+        el.style.boxShadow = BASE_SHADOW;
+        el.style.zIndex    = '';
+      });
+    });
+  }, 80);
+
+  // ── INIT ─────────────────────────────────────────────────────────────────
+  renderComments();
+
+})();
+</script>
+</body>
+</html>
