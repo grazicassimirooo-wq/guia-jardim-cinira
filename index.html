@@ -220,6 +220,12 @@
     .gjc-card-new { font: 600 12.5px 'Hanken Grotesk'; color: var(--accent); }
     .gjc-card-link { font: 600 13px 'Hanken Grotesk'; color: var(--text); text-decoration: none; transition: color .2s; }
     .gjc-card-link:hover { color: #2f9e64; }
+    .gjc-card-logo {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 72px; height: 72px; object-fit: contain;
+      border-radius: 14px; background: rgba(255,255,255,.88);
+      padding: 10px; box-shadow: 0 2px 12px rgba(0,0,0,.18);
+    }
 
     /* ── COMMENTS ── */
     .gjc-comments { max-width: 1180px; margin: 0 auto; padding: 62px 28px 0; }
@@ -446,7 +452,7 @@
         <div class="gjc-card-img" style="background:linear-gradient(135deg,#ecd9c2,#d6ac7c);">
           <div class="gjc-card-img-pat"></div>
           <span class="gjc-card-badge">Gastronomia</span>
-          <span class="gjc-card-photo">foto · pizza</span>
+          <img class="gjc-card-logo" src="https://adega-da-vila.lovable.app/favicon.ico" alt="Adega da Vila">
         </div>
         <div class="gjc-card-body">
           <h3 class="gjc-card-title">Adega da Vila</h3>
@@ -476,14 +482,14 @@
         <div class="gjc-card-img" style="background:linear-gradient(135deg,#e3d4c4,#c49f82);">
           <div class="gjc-card-img-pat"></div>
           <span class="gjc-card-badge">Gastronomia</span>
-          <span class="gjc-card-photo">foto · café e sobremesa</span>
+          <img class="gjc-card-logo" src="https://cafe-dali.lovable.app/favicon.ico" alt="Café Dali">
         </div>
         <div class="gjc-card-body">
-          <h3 class="gjc-card-title">Café do Jardim</h3>
-          <p class="gjc-card-desc">Cafés especiais, brunch e sobremesas feitas no capricho.</p>
+          <h3 class="gjc-card-title">Café Dali</h3>
+          <p class="gjc-card-desc">Cafés especiais, brunch e sobremesas artesanais num ambiente aconchegante.</p>
           <div class="gjc-card-foot">
             <span class="gjc-card-rating"><span class="star">★</span> 4.9</span>
-            <a href="#" class="gjc-card-link">Ver mais →</a>
+            <a href="https://cafe-dali.lovable.app/" target="_blank" rel="noopener noreferrer" class="gjc-card-link">Ver mais →</a>
           </div>
         </div>
       </article>
